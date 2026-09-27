@@ -1,0 +1,104 @@
+[
+  {
+    "type": "cue",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cue_header",
+          "named": true
+        },
+        {
+          "type": "cue_payload",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cue_header",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "cue_timing",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cue_timing",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "timestamp",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "setting",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "cue",
+          "named": true
+        },
+        {
+          "type": "file_start",
+          "named": true
+        },
+        {
+          "type": "setting",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "cue_payload",
+    "named": true
+  },
+  {
+    "type": "file_start",
+    "named": true
+  },
+  {
+    "type": "timestamp",
+    "named": true
+  }
+]

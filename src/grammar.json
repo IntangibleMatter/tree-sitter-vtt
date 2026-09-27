@@ -1,0 +1,145 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
+  "name": "vtt",
+  "rules": {
+    "source_file": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "file_start"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_terminator"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "cue"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "comment"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_line_terminator"
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "setting"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_line_terminator"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "file_start": {
+      "type": "STRING",
+      "value": "WEBVTT"
+    },
+    "setting": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "\\w+"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\w+"
+        }
+      ]
+    },
+    "_line_terminator": {
+      "type": "PATTERN",
+      "value": "\\x0D\\x0A|\\x0D|\\x0A"
+    },
+    "cue": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "cue_header"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_terminator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cue_payload"
+        }
+      ]
+    },
+    "cue_header": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "cue_timing"
+        }
+      ]
+    },
+    "cue_timing": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "timestamp"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\s+-->\\s+"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "timestamp"
+        }
+      ]
+    },
+    "timestamp": {
+      "type": "PATTERN",
+      "value": "(\\d\\d+:)?[0-5]\\d:[0-5]\\d\\.\\d\\d\\d"
+    },
+    "comment": {
+      "type": "PATTERN",
+      "value": "NOTE.*?(\\x0D\\x0A|\\x0D|\\x0A)"
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s"
+    }
+  ],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "cue_payload"
+    }
+  ],
+  "inline": [],
+  "supertypes": [],
+  "reserved": {}
+}
